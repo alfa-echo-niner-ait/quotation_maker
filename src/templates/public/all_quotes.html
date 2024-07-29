@@ -1,0 +1,74 @@
+{% extends "layout/layout_public.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+        <li class="breadcrumb-item">
+            <a class="link-body-emphasis fw-semibold text-decoration-none" href="{{ url_for('public.dashboard') }}">
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item active">
+            All Quotation
+        </li>
+    </ol>
+</nav>
+
+<div class="fs-3 fw-semibold">
+    <i class="bi bi-list-columns-reverse"></i> All Quotations
+</div>
+
+<table class="table table-hover mt-3">
+    <thead>
+        <tr>
+            <th scope="col" class="text-start">#</th>
+            <th scope="col" class="text-start">Created By</th>
+            <th scope="col" class="text-start">Customer</th>
+            <th scope="col">Project</th>
+            <th scope="col">Size</th>
+            <th scope="col">Currency</th>
+            <th scope="col">Date</th>
+            <th scope="col" class="text-end">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for quote in quotes.items %}
+        <tr>
+            <th scope="row" class="text-start">{{ loop.index }}</th>
+            <td class="text-start">{{ quote.username  }}</td>
+            <td class="text-start">{{ quote.customer  }}</td>
+            <td>{{ quote.project }}</td>
+            <td>{{ quote.size }}</td>
+            <td>{{ quote.currency }}</td>
+            <td>{{ quote.date }}</td>
+            <td class="text-end">
+                <a href="{{ url_for('public.quotation', id=quote.q_id) }}" class="btn btn-sm btn-outline-secondary rounded-4" target="_blank">
+                    <i class="bi bi-eye"></i> Preview
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Pagination -->
+<div class="row mx-auto mt-3 mb-3">
+    <div class="col md-12 text-center p-1">
+        {% for page_num in quotes.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+        {% if quotes.page == page_num %}
+        <a class="btn btn-info rounded-pill m-2" href="{{ url_for('public.all_quotes', page=page_num) }}">
+            {{ page_num }}
+        </a>
+        {% else %}
+        <a class="btn btn-outline-info rounded-pill m-2" href="{{ url_for('public.all_quotes', page=page_num) }}">
+            {{ page_num }}
+        </a>
+        {% endif %}
+        {% else %}
+        ...
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

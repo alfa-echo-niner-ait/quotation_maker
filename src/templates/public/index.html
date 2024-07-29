@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruigang Quotation Maker</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon.ico')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-icons.min.css')}}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js')}}"></script>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light-subtle">
+    <!-- Notice section start -->
+    <div class="clearfix mt-3 ms-2 me-2">
+        <div class="mx-auto" style="max-width: 500px;">
+            {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible text-center mb-2 fw-semibold rounded-5" fade show>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ message }}
+            </div>
+            {% endfor %} {% endif %} {% endwith %}
+        </div>
+    </div>
+    <!-- Notice section end -->
+    <main class="w-100 m-auto align-items-center shadow-lg rounded-5 p-5"
+        style="max-width: 450px;" role="main">
+        <div class="display-5 text-center mb-5">
+            <i class="bi bi-person-fill-lock"></i> Account Login
+        </div>
+
+        <form action="{{ url_for('public.login') }}" method="post">
+            {{ form.hidden_tag() }}
+            <div class="input-group mb-3">
+                <div class="input-group-text fs-3 fw-bold">
+                    <i class="bi bi-person-fill-exclamation"></i>
+                </div>
+                {% if form.username.errors %}
+                {{ form.username(class='form-control is-valid', placeholder='Enter username')}}
+                <div class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.username(class='form-control', placeholder='Enter username')}}
+                {% endif %}
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-text fs-3 fw-bold">
+                    <i class="bi bi-key-fill"></i>
+                </div>
+                {% if form.password.errors %}
+                {{ form.password(class='form-control is-valid', placeholder='Enter password')}}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.password(class='form-control', placeholder='Enter password')}}
+                {% endif %}
+            </div>
+
+            <div class="form-check mb-3">
+                {{ form.remember.label(class='form-check-label fw-semibold text-muted')}}
+                {{ form.remember(class='form-check-input', type='checkbox')}}
+            </div>
+
+            {{ form.submit(class='btn btn-success w-100 rounded-5 py-2 mt-3 mb-3')}}
+        </form>
+
+    </main>
+
+    <footer class="mt-auto pt-2">
+        <p class="text-center text-muted">
+            Solution by <a class="text-primary text-decoration-none" href="https://www.facebook.com/alfa.echo.niner.ait"
+                target="_blank">
+                Ayub Ali Emon
+            </a>,
+            Made for <a class="text-primary text-decoration-none" href="https://www.ruiganggroup.com/"
+            target="_blank">
+            Ruigang
+        </a> Team
+        </p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+</body>
+</html>

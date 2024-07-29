@@ -1,0 +1,76 @@
+<div class="modal fade modal-lg" id="newQuoteModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header bg-primary-subtle">
+                <h4 class="modal-title">
+                    <i class="bi bi-pencil-square"></i> Create New Quotation
+                </h4>
+                <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal"></button>
+
+            </div>
+            <!-- Body -->
+            <div class="modal-body">
+                <form method="POST" action="{{ url_for('public.new_quote') }}">
+                    {{ form.hidden_tag() }}
+                    <div class="row">
+                        <div class="col-9">
+                            <!-- Customer -->
+                            <div class="mb-3">
+                                {{ form.customer.label(class='form-label fw-bold') }}
+                                {{ form.customer(class="form-control", placeholder='Enter Customer Name') }}
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="mb-3">
+                                {{ form.currency.label(class='form-label fw-bold') }}
+                                {{ form.currency(class="form-select") }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                {{ form.project.label(class='form-label fw-bold') }}
+                                {{ form.project(class="form-control", placeholder='Enter Project Name') }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="mb-3">
+                                {{ form.size.label(class='form-label fw-bold') }}
+                                {{ form.size(class="form-control", placeholder='Specify Project Dimension Size') }}
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                {{ form.date.label(class='form-label fw-bold') }}
+                                {{ form.date(class="form-control") }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="mb-3">
+                                {{ form.validity.label(class='form-label fw-bold') }}
+                                {{ form.validity(class="form-control", placeholder='Enter Validity Duration') }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                {{ form.truss.label(class='form-label fw-bold') }}
+                                {{ form.truss(class="form-control", placeholder='Enter Truss Specification') }}
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <!-- Create Button -->
+            <div class="d-grid mb-3">
+                {{ form.submit(class='btn btn-primary fw-bold text-white mt-2 mb-2') }}
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

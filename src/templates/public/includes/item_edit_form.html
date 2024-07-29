@@ -1,0 +1,67 @@
+<td colspan="9">
+    <div class="border mb-3 p-3 rounded-3">
+        <form id="editItemForm{{item.item_id}}">
+            <div class="row">
+                <div class="col">
+                    <label for="materialEdit" class="form-label fw-semibold fs-6">Material</label>
+                    <input type="text" name="materialEdit" id="materialEdit" class="form-control"
+                        placeholder="Type Material Name" value="{{ item.material }}">
+                </div>
+                <div class="col">
+                    <label for="specEdit" class="form-label fw-semibold fs-6">Specification</label>
+                    <input type="text" name="specEdit" id="specEdit" class="form-control" placeholder="Enter Specification"
+                        value="{{ item.spec }}">
+                </div>
+                <div class="col-2">
+                    <label for="unitEdit" class="form-label fw-semibold fs-6">Unit</label>
+                    <input type="text" name="unitEdit" id="unitEdit" class="form-control" placeholder="Type Product Unit"
+                        value="{{ item.unit }}">
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col">
+                    <label for="qtyEdit" class="form-label fw-semibold fs-6">Quantity</label>
+                    <input type="number" step="any" name="qtyEdit" id="qtyEdit" class="form-control"
+                        placeholder="Enter Quantity" value="{{ item.qty }}">
+                </div>
+                <div class="col">
+                    <label for="unit_pricEdit" class="form-label fw-semibold fs-6">Unit Price</label>
+                    <input type="number" step="any" name="unit_priceEdit" id="unit_priceEdit" class="form-control"
+                        placeholder="Enter Unit Price" value="{{ item.unit_price }}">
+                </div>
+                <div class="col">
+                    <label for="total_priceEdit" class="form-label fw-semibold fs-6">Total Price</label>
+                    <input type="number" step="any" name="total_priceEdit" id="total_priceEdit" class="form-control"
+                        placeholder="Enter Total Price" value="{{ item.total_price }}">
+                </div>
+                <div class="col-4">
+                    <label for="noteEdit" class="form-label fw-semibold fs-6">Note</label>
+                    <input type="text" name="noteEdit" id="noteEdit" class="form-control" placeholder="Write Note If Have Any" value="{{ item.note }}">
+                </div>
+            </div>
+            <div class="fs-6 fw-semibold mt-3">
+                Select Image
+            </div>
+            <div class="row mt-3">
+                <input type="hidden" name="editItemId" id="editItemId" value="{{item.item_id}}">
+                <input type="hidden" name="imgeUriEdit{{item.item_id}}" id="imgeUriEdit{{item.item_id}}" value="{{ item.ref_img }}">
+                <div class="col" id="itemEditImgSelect{{item.item_id}}">
+                    <img src="{{ item.ref_img }}" class="img-thumbnail img-fluid" height="250px" width="250px">
+                </div>
+                <div class="col">
+                    <div class="text-center mx-auto">
+                        <button type="button" id="selectImgBtn" class="btn btn-outline-info rounded-4"
+                            data-bs-toggle="modal" data-bs-target="#editImgSelectModal" onclick="seteditItemID('{{item.item_id}}')">
+                            Update Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-lg btn-success rounded-5" onclick="editFormSubmit('{{item.item_id}}')">
+                    Save Item
+                </button>
+            </div>
+        </form>
+    </div>
+</td>

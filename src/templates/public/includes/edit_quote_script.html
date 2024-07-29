@@ -1,0 +1,200 @@
+<script>
+    var editItemID = ""
+    function seteditItemID(itemID) {
+        editItemID = itemID
+    }
+    // Load image gallery
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/img_data",
+            success: function (response) {
+                var data = ""
+                var editData = ""
+                $.each(response, function (index, value) {
+                    data += `
+                    <div class="col-3">
+                        <div class="card">
+                            <img src="${value.url}" class="card-img img-fluid" width="100%"
+                                height="100%" alt="${value.name}">
+                            <div class="card-img-overlay text-end">
+                                <span class="badge fs-6 bg-info-subtle text-info-emphasis rounded p-2">
+                                    ${value.name}
+                                </span>
+                                <button type='button' class='btn btn-sm' onclick='setImgId(${value.id}, "${value.url}")'>
+                                    <span class="badge fs-6 bg-success-subtle text-success rounded p-2">
+                                        <i class="bi bi-check2"></i> Select
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                    editData += `
+                    <div class="col-3">
+                        <div class="card">
+                            <img src="${value.url}" class="card-img img-fluid" width="100%"
+                                height="100%" alt="${value.name}">
+                            <div class="card-img-overlay text-end">
+                                <span class="badge fs-6 bg-info-subtle text-info-emphasis rounded p-2">
+                                    ${value.name}
+                                </span>
+                                <button type='button' class='btn btn-sm' onclick='setEditImgId(${value.id}, "${value.url}")'>
+                                    <span class="badge fs-6 bg-success-subtle text-success rounded p-2">
+                                        <i class="bi bi-check2"></i> Select
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                });
+                $('#modalImgs').html(data);
+                $('#modalEditImgs').html(editData);
+            }
+        });
+    });
+
+    // Btn click handler
+    $('#entry_btn').click(function (e) {
+        e.preventDefault();
+        $('#entry_btn').hide('slow');
+        $('#item_tite').show('slow');
+        $('#item_form').show('slow');
+        $('#preview_btn').show('slow');
+        $('#material').focus();
+    });
+    // Edit item btn click handler
+    function editItemForm(divId, itemId) {
+        $('#' + divId).children().html("")
+        $('#' + divId).load("/quotation/item/" + itemId);
+    }
+
+    // Set selected image data
+    function setImgId(imgId, img_url) {
+        $('#imgId').val(imgId);
+        $('#imgUri').val(img_url);
+        var data = `
+        <img src="${img_url}" class="img-thumbnail img-fluid" height="250px" width="250px">
+        `
+        $('#itemImgSelect').html(data);
+        $('#imgSelectModal').modal('hide');
+    }
+    // Set selected image data (edit item)
+    function setEditImgId(imgId, img_url) {
+        $('#imgIdEdit' + editItemID).val(imgId);
+        $('#imgeUriEdit' + editItemID).val(img_url);
+        console.log('#imgeUriEdit' + editItemID)
+        var data = `
+        <img src="${img_url}" class="img-thumbnail img-fluid" height="250px" width="250px">
+        `
+        $('#itemEditImgSelect' + editItemID).html(data);
+        $('#editImgSelectModal').modal('hide');
+        editItemID = ""
+    }
+
+    // Calculate total price
+    $('#unit_price').keyup(function (e) {
+        var qty = $('#qty').val();
+        var unit_price = $('#unit_price').val();
+        var total = qty * unit_price;
+        $('#total_price').val(total);
+    });
+    $('#qty').keyup(function (e) {
+        var qty = $('#qty').val();
+        var unit_price = $('#unit_price').val();
+        var total = qty * unit_price;
+        $('#total_price').val(total);
+    });
+
+    // Add item to list
+    $('#addItemForm').submit(function (e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+
+        var mat = $('#material').val();
+        var spec = $('#spec').val();
+        var unit = $('#unit').val();
+        var qty = $('#qty').val();
+        var unit_price = $('#unit_price').val();
+        var total = $('#total_price').val();
+        var note = $('#note').val();
+        var img = $('#imgUri').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/add_quote_item/" + parseInt("{{ quote.q_id }}"),
+            data: data,
+            success: function (response) {
+                if (response.opt == "success") {
+                    var item_data = `
+                    <tr id='item${response.item_id}'>
+                        <td class="text-start">${mat}</td>
+                        <td class="text-start">${spec}</td>
+                        <td class="text-center">${qty}</td>
+                        <td class="text-center">${unit}</td>
+                        <td class="text-center">${unit_price}</td>
+                        <td class="text-center">${total}</td>
+                        <td class="text-start">${note}</td>
+                        <td class="text-center">
+                            <img src="${img}" class="img-fluid" height="100px" width="100px">
+                        </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-sm text-success fs-5" id="editItemBtn"
+                                onclick="editItemForm('item${response.item_id}', '${response.item_id}')">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <a href="/delete_quote_item/${response.item_id}"
+                                class="text-decoration-none text-danger fs-5" onclick="return confirm('Are you sure to delete this item?')">
+                                <i class="bi bi-trash3-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    `
+                    $('#itemTable').append(item_data);
+                }
+            }
+        });
+        $("#addItemForm")[0].reset();
+        $('#itemImgSelect').html("");
+    });
+
+    // Edit item submission
+    function editFormSubmit(itemID) {
+        $.ajax({
+            type: "POST",
+            url: "/edit_quote_item/" + parseInt(itemID),
+            data: $('#editItemForm' + itemID).serialize(),
+            success: function (response) {
+                if (response.opt == "success") {
+                    var item_data = `
+                    <td class="text-start">${response.material}</td>
+                    <td class="text-start">${response.spec}</td>
+                    <td class="text-center">${response.qty}</td>
+                    <td class="text-center">${response.unit}</td>
+                    <td class="text-center">${response.unit_price}</td>
+                    <td class="text-center">${response.total_price}</td>
+                    <td class="text-start">${response.note}</td>
+                    <td class="text-center">
+                        <img src="${response.ref_img}" class="img-fluid" height="100px" width="100px">
+                    </td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-sm text-success fs-5" id="editItemBtn"
+                            onclick="editItemForm('item${response.item_id}', '${response.item_id}')">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <a href="/delete_quote_item/${response.item_id}"
+                            class="text-decoration-none text-danger fs-5" onclick="return confirm('Are you sure to delete this item?')">
+                            <i class="bi bi-trash3-fill"></i>
+                        </a>
+                    </td>
+                    `
+                    $('#item' + itemID).html(item_data);
+                }
+            }
+        });
+
+    }
+
+
+</script>

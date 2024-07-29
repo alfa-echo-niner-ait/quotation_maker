@@ -1,0 +1,58 @@
+<div class="fs-4 mt-3 mb-2 fw-semibold" style="display: none;" id="item_tite">Insert New Item</div>
+<div class="border mb-3 p-3 rounded-3" style="display: none;" id="item_form">
+    <form id="addItemForm">
+        <div class="row">
+            <div class="col">
+                <label for="material" class="form-label fw-semibold fs-6">Item</label>
+                <input type="text" name="material" id="material" class="form-control" placeholder="Type Material Name">
+            </div>
+            <div class="col">
+                <label for="spec" class="form-label fw-semibold fs-6">Specification</label>
+                <input type="text" name="spec" id="spec" class="form-control" placeholder="Enter Specification">
+            </div>
+            <div class="col-2">
+                <label for="unit" class="form-label fw-semibold fs-6">Unit</label>
+                <input type="text" name="unit" id="unit" class="form-control" placeholder="Type Product Unit">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <label for="qty" class="form-label fw-semibold fs-6">Quantity</label>
+                <input type="number" step="any" name="qty" id="qty" class="form-control" placeholder="Enter Quantity">
+            </div>
+            <div class="col">
+                <label for="unit_price" class="form-label fw-semibold fs-6">Unit Price</label>
+                <input type="number" step="any" name="unit_price" id="unit_price" class="form-control"
+                    placeholder="Enter Unit Price">
+            </div>
+            <div class="col">
+                <label for="total_price" class="form-label fw-semibold fs-6">Total Price</label>
+                <input type="number" step="any" name="total_price" id="total_price" class="form-control"
+                    placeholder="Enter Total Price">
+            </div>
+            <div class="col-4">
+                <label for="note" class="form-label fw-semibold fs-6">Note</label>
+                <input type="text" name="note" id="note" class="form-control" placeholder="Write Note If Have Any">
+            </div>
+        </div>
+        <div class="fs-6 fw-semibold mt-3">
+            Select Image
+        </div>
+        <div class="row mt-3">
+            <input type="hidden" name="imgId" id="imgId">
+            <input type="hidden" name="imgUri" id="imgUri">
+            <div class="col" id="itemImgSelect"></div>
+            <div class="col">
+                <div class="text-center mx-auto">
+                    <button type="button" id="selectImgBtn" class="btn btn-outline-info rounded-4"
+                        data-bs-toggle="modal" data-bs-target="#imgSelectModal">
+                        Select Image
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <input type="submit" class="btn btn-lg btn-primary rounded-5" value="Add to list">
+        </div>
+    </form>
+</div>
