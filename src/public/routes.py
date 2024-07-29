@@ -303,8 +303,10 @@ def update_account_handler():
 @public.route("/dashboard/gallery")
 @login_required
 def gallery():
+    page_num = request.args.get("page", 1, int)
+
     form = Image_Upload_Form()
-    images: Images = Images.query.order_by(Images.img_id.desc()).all()
+    images: Images = Images.query.order_by(Images.img_id.desc()).paginate(page=page_num, per_page=16)
     return render_template(
         "public/gallery.html", title="Image Gallery", form=form, images=images
     )

@@ -24,12 +24,12 @@
     </button>
 </div>
 
-<div class="row" data-masonry='{"percentPosition": true }'>
-    {% for image in images %}
+<div class="row">
+    {% for image in images.items %}
     <div class="col-sm-6 col-md-4 col-lg-3 mb-2">
-        <div class="card">
-            <img src="{{url_for('static', filename='images/' ~ image.img_url) }}" class="card-img img-fluid" width="100%"
-                height="250" alt="{{ image.img_name }}">
+        <div class="card h-100">
+            <img src="{{url_for('static', filename='images/' ~ image.img_url) }}" class="card-img-top"
+                style="height: 250px;" alt="{{ image.img_name }}">
             <div class="card-img-overlay text-end">
                 <span class="badge fs-6 bg-info-subtle text-info-emphasis rounded p-2">
                     {{ image.img_name }}
@@ -43,6 +43,27 @@
         </div>
     </div>
     {% endfor %}
+</div>
+
+<!-- Pagination -->
+<div class="row mx-auto mt-3 mb-3">
+    <div class="col md-12 text-center p-1">
+        {% for page_num in images.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+        {% if images.page == page_num %}
+        <a class="btn btn-info rounded-pill m-2" href="{{ url_for('public.gallery', page=page_num) }}">
+            {{ page_num }}
+        </a>
+        {% else %}
+        <a class="btn btn-outline-info rounded-pill m-2" href="{{ url_for('public.gallery', page=page_num) }}">
+            {{ page_num }}
+        </a>
+        {% endif %}
+        {% else %}
+        ...
+        {% endif %}
+        {% endfor %}
+    </div>
 </div>
 {% include '/public/modals/image_upload_modal.html' %}
 {% endblock content %}
