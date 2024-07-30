@@ -43,7 +43,7 @@ def login():
         password = form.password.data
         remember = form.remember.data
 
-        user: Users = Users.query.filter(Users.username == username).first()
+        user: Users = Users.query.filter(Users.username == username.lower()).first()
         if user and user.password == password:
             login_user(user=user, remember=remember)
 

@@ -160,7 +160,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'emon','123456','admin'),(2,'ross','123456','user'),(3,'primo','123456','user'),(4,'charly','123456','user'),(5,'sally','123456','user'),(6,'gelin','123456','user'),(7,'iris','Ruigang369%','user'),(8,'amelia','123456','user'),(9,'beily','123456','user');
+INSERT INTO `users` VALUES (1,'emon','123456','admin'),(2,'ross','123456','user'),(3,'primo','123456','user'),(4,'charly','123456','user'),(5,'sally','123456','user'),(6,'gelin','123456','user'),(7,'iris','123456','user'),(8,'amelia','123456','user'),(9,'beily','123456','user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
