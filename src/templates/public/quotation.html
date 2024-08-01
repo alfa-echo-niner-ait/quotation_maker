@@ -9,6 +9,7 @@
     {% else %}
     <title>Ruigang</title>
     {% endif %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon.ico')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-icons.min.css')}}">
     <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js')}}"></script>
@@ -64,8 +65,8 @@
     </header>
     <main role="main" class="mt-2 ms-3 me-3">
         <!-- Items -->
-        <table class="table table-sm table-bordered">
-            <thead>
+        <table class="table table-sm table-bordered table-striped">
+            <thead class="table-primary">
                 <tr>
                     <th scope="col" class="text-center">Item</th>
                     <th scope="col" class="text-center">Specification</th>
@@ -99,14 +100,14 @@
                 {% endfor %}
                 <tr>
                     <td colspan="5" class="text-center fw-bold">Net Amount</td>
-                    <td class="text-center fw-bold">{{ "$%.2f"|format(net_amount) }}</td>
+                    <td class="text-center fw-bold">{{ "%.2f"|format(net_amount) }}</td>
                     <td colspan="2" class="text-start fst-italic">USD</td>
                 </tr>
             </tbody>
         </table>
         <!-- Remarks -->
         <div class="d-flex justify-content-between">
-            <div class="text-start ps-3 me-3">
+            <div class="text-start ps-3 me-5">
                 <div class="fw-bold fs-5 mb-2">Remarks:</div>
                 <span class="fw-bold">1. Payment Method: </span>
                 <span class="fw-light">T/T</span>
@@ -132,15 +133,10 @@
             </div>
         </div>
         <!-- Note -->
-        <div class="row mt-3">
-            <div class="col-1"></div>
-            <div class="col-10">
-                <div class="alert alert-warning text-center fs-6">
-                    <strong>Note: </strong>The above price list doesn't include the cost of concrete foundation,
-                    construction and fixing.
-                </div>
+        <div class="m-3">
+            <div class="bg-warning-subtle text-warning-emphasis p-2 text-sm text-center rounded-3">
+                <strong>Note: </strong>The above prices don't include the cost of concrete foundation, construction and fixing.
             </div>
-            <div class="col-1"></div>
         </div>
     </main>
 
