@@ -68,40 +68,62 @@
         <table class="table table-sm table-bordered table-striped">
             <thead class="table-primary">
                 <tr>
-                    <th scope="col" class="text-center">Item</th>
-                    <th scope="col" class="text-center">Specification</th>
-                    <th scope="col" class="text-center">Quantity</th>
-                    <th scope="col" class="text-center">Unit</th>
-                    <th scope="col" class="text-center">Unit Price</th>
-                    <th scope="col" class="text-center">Total Price</th>
-                    <th scope="col" class="text-start">Note</th>
-                    <th scope="col" class="text-center">Ref. Photo</th>
+                    <th scope="col" class="text-center"><small>Item</small></th>
+                    <th scope="col" class="text-center"><small>Specification</small></th>
+                    <th scope="col" class="text-center"><small>Quantity</small></th>
+                    <th scope="col" class="text-center"><small>Unit</small></th>
+                    <th scope="col" class="text-center"><small>Unit Price</small></th>
+                    <th scope="col" class="text-center"><small>Total Price</small></th>
+                    <th scope="col" class="text-start"><small>Note</small></th>
+                    <th scope="col" class="text-center"><small>Ref. Photo</small></th>
                 </tr>
             </thead>
             <tbody id="itemTable">
                 {% for item in items %}
                 <tr>
-                    <td class="text-start">{{ item.material }}</td>
-                    <td class="text-start">{{ item.spec }}</td>
-                    <td class="text-center">{{ "%.2f"|format(item.qty) }}</td>
-                    <td class="text-center">{{ item.unit }}</td>
-                    <td class="text-center">{{ "%.2f"|format(item.unit_price) }}</td>
-                    <td class="text-center">{{ "%.2f"|format(item.total_price) }}</td>
-                    <td class="text-start">{{ item.note }}</td>
+                    <td class="text-start">
+                        <small>{{ item.material }}</small>
+                    </td>
+                    <td class="text-start">
+                        <small>{{ item.spec }}</small>
+                    </td>
+                    <td class="text-center">
+                        <small>{{ "%.2f"|format(item.qty) }}</small>
+                    </td>
+                    <td class="text-center">
+                        <small>{{ item.unit }}</small>
+                    </td>
+                    <td class="text-center">
+                        <small>{{ "%.2f"|format(item.unit_price) }}</small>
+                    </td>
+                    <td class="text-center">
+                        <small>{{ "%.2f"|format(item.total_price) }}</small>
+                    </td>
+                    <td class="text-start">
+                        <small>{{ item.note }}</small>
+                    </td>
                     {% if item.ref_img %}
                     <td class="text-center">
-                        <img src="{{ item.ref_img }}" class="img-fluid" height="100px" width="100px">
+                        <img src="{{ item.ref_img }}" class="img-fluid" width="120px" style="max-height: 120px;">
                     </td>
                     {% else %}
                     <td class="text-center">
                         <i class="bi bi-card-image fs-4"></i>
                     </td>
                     {% endif %}
-                {% endfor %}
+                    {% endfor %}
                 <tr>
-                    <td colspan="5" class="text-center fw-bold">Net Amount</td>
-                    <td class="text-center fw-bold">{{ "%.2f"|format(net_amount) }}</td>
-                    <td colspan="2" class="text-start fst-italic">USD</td>
+                    <td colspan="5" class="text-center fw-bold">
+                        <small>Net Amount</small>
+                    </td>
+                    <td class="text-center fw-bold">
+                        <small>
+                            {{ "%.2f"|format(net_amount) }}
+                        </small>
+                    </td>
+                    <td colspan="2" class="text-start fst-italic">
+                        <small>{{ quote.currency }}</small>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -135,7 +157,8 @@
         <!-- Note -->
         <div class="m-3">
             <div class="bg-warning-subtle text-warning-emphasis p-2 text-sm text-center rounded-3">
-                <strong>Note: </strong>The above prices don't include the cost of concrete foundation, construction and fixing.
+                <strong>Note: </strong>The above prices don't include the cost of concrete foundation, construction and
+                fixing.
             </div>
         </div>
     </main>
@@ -147,9 +170,9 @@
                 w w w . r u i g a n g s t e e l . c o m
             </a>
         </div>
-        <div class="bg-primary p-2 text-center text-white mt-1">
+        <!-- <div class="bg-primary p-2 text-center text-white mt-1">
             Qingdao Ruigang Heavy Industry Co., Ltd
-        </div>
+        </div> -->
     </footer>
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 </body>

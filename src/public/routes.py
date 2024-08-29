@@ -360,7 +360,7 @@ def remove_image(id):
 @public.route("/img_data", methods=["GET"])
 @login_required
 def img_data():
-    images: Images = Images.query.all()
+    images: Images = Images.query.order_by(Images.img_id.desc()).all()
     results = list()
     for image in images:
         img = {
