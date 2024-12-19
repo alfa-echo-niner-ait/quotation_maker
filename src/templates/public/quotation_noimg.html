@@ -75,7 +75,6 @@
                     <th scope="col" class="text-center"><small>Unit Price</small></th>
                     <th scope="col" class="text-center"><small>Total Price</small></th>
                     <th scope="col" class="text-start"><small>Note</small></th>
-                    <th scope="col" class="text-center"><small>Ref. Photo</small></th>
                 </tr>
             </thead>
             <tbody id="itemTable">
@@ -102,15 +101,6 @@
                     <td class="text-start">
                         <small>{{ item.note }}</small>
                     </td>
-                    {% if item.ref_img %}
-                    <td class="text-center">
-                        <img src="{{ item.ref_img }}" class="img-fluid" width="120px" style="max-height: 120px;">
-                    </td>
-                    {% else %}
-                    <td class="text-center">
-                        <i class="bi bi-card-image fs-4"></i>
-                    </td>
-                    {% endif %}
                     {% endfor %}
                 <tr>
                     <td colspan="5" class="text-center fw-bold">

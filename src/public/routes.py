@@ -392,6 +392,25 @@ def quotation(id):
         title=f"{quote.customer} ({quote.project}) Quotation by {user.name}",
     )
 
+@public.route("/quotation_noimg/<id>")
+def quotation_noimg(id):
+    quote: Quotes = Quotes.query.filter(Quotes.q_id == int(id)).first_or_404()
+    items = Quote_Items.query.filter(Quote_Items.quote_id == quote.q_id).all()
+    user: User_Info = User_Info.query.filter(User_Info.id == quote.user_id).first()
+
+    net_amount = 0
+    for item in items:
+        net_amount = net_amount + item.total_price
+
+    return render_template(
+        "public/quotation_noimg.html",
+        quote=quote,
+        items=items,
+        user=user,
+        net_amount=net_amount,
+        title=f"{quote.customer} ({quote.project}) Quotation by {user.name}",
+    )
+
 
 @public.route("/quotation/item/<id>")
 def edit_item(id):
